@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			KC_NO,                                                                                     // ESC
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,       KC_NO,         // F1 - F6
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,       KC_NO,         // F7 - F12 
-			KC_NO,        KC_NO,           KC_NO,                                                      // Print screen, scroll lock, Pause 
+			NK_ON,        KC_NO,           KC_NO,                                                      // Print screen, scroll lock, Pause 
 			KC_NO,                                                                                     // backquote 
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // 1 - 5
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // 6 - 0
