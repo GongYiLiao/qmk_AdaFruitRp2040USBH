@@ -11,7 +11,7 @@ The change made here is to specify `DP+` Pin as 16 (thus `DP-` is 17) and the 5V
 void c1_usbh(void) {
     pio_usb_configuration_t pio_cfg = PIO_USB_DEFAULT_CONFIG;
     pio_cfg.pin_dp                  = 16;
-    pio_cfg.extra_error_retry_count = 10;
+    // pio_cfg.extra_error_retry_count = 10;
     pio_cfg.skip_alarm_pool         = true;
     tuh_configure(1, TUH_CFGID_RPI_PIO_USB_CONFIGURATION, &pio_cfg);
 
