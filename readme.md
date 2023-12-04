@@ -38,7 +38,10 @@ I made some layouts in `info.json` and corresponding `keymap.c` for DVORAK typis
 After [setup your qmk envorinment](), clone this repository to `keyboards/converter` then run
 
 ```
-git clone https://github.com/GongYiLiao/qmk_AdaFruitRp2040USBH.git _your_qmk_repo/keyboards/converter/adafruit_rp2040_usbh 
+git clone https://github.com/GongYiLiao/qmk_AdaFruitRp2040USBH.git _your_qmk_repo/keyboards/converter/adafruit_rp2040_usbh
+cd _your_qmk_repo/keyboard/converter/adafruit_rp2040_usbh
+git submodule update --init --recursive
+cd ../../..
 make converter/adafruit_rp2040_usbh:_your_choice:uf2 
 ```
 
