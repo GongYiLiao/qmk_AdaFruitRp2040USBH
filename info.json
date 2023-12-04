@@ -1,6 +1,6 @@
 {
-  "manufacturer": "sekigon-gonnoc",
-  "keyboard_name": "Keyboard Quantizer",
+  "manufacturer": "Adafruit",
+  "keyboard_name": "Rp2040 USB Host",
   "maintainer": "sekigon-gonnoc",
   "bootloader": "rp2040",
   "diode_direction": "COL2ROW",

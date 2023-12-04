@@ -1,2 +1,2 @@
-include keyboards/sekigon/keyboard_quantizer/mini2/parser/rules.mk
-VPATH += keyboards/sekigon/keyboard_quantizer/mini2/parser
+include keyboards/converter/adafruit_rp2040_usbh/parser/rules.mk
+VPATH += keyboards/converter/adafruit_rp2040_usbh/parser
