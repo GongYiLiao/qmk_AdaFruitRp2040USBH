@@ -38,10 +38,11 @@ I made some layouts in `info.json` and corresponding `keymap.c` for DVORAK typis
 After [setup your qmk envorinment](), clone this repository to `keyboards/converter` then run
 
 ```
+git clone https://github.com/GongYiLiao/qmk_AdaFruitRp2040USBH.git _your_qmk_repo/keyboards/converter/adafruit_rp2040_usbh 
 make converter/adafruit_rp2040_usbh:_your_choice:uf2 
 ```
 
-where `_your_choice` can be `ka500` for Kinesis Advantage MPC (KB500), `ansi` for generic 104-key ANSI keyboard and `pok3r` if you have a Pok3r keyboard. 
+where `_your_choice` can be `ka500` for Kinesis Advantage MPC (KB500), `ansi` for generic 104-key ANSI keyboard and `pok3r` if you have a Pok3r keyboard
 
 
 ## TODO:
