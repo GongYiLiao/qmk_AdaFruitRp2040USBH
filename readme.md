@@ -4,7 +4,7 @@
 
 This is based on [Sekigon's Keyboard Quantizer mini-full branch](https://github.com/sekigon-gonnoc/qmk_firmware/tree/keyboard/sekigon/keyboard_quantizer/mini-full/keyboards/sekigon/keyboard_quantizer/mini)
 
-The change made here is to specify to `DP+` Pin as 16 (thus `DP-` is 17) and the 5V pin (18) in `c1_usbh.c`:
+The change made here is to specify `DP+` Pin as 16 (thus `DP-` is 17) and the 5V pin (18) in `c1_usbh.c`:
 
 ```
 // Initialize USB host stack on core1
