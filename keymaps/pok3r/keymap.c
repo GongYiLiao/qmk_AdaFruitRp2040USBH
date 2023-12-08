@@ -8,6 +8,96 @@ enum layers {
   _EMACS_0,
 };
 
+
+
+typedef struct {
+  bool is_press_action;
+  uint8_t step;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD,
+  DOUBLE_TAP,   
+  DOUBLE_HOLD,        // Actually tap then hold  
+  DOUBLE_SINGLE_TAP,
+  MORE_TAPS
+};
+
+
+uint8_t dance_step(tap_dance_state_t *state);
+
+uint8_t dance_step(tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed) return SINGLE_TAP;
+    else return SINGLE_HOLD;
+  } else if (state->count == 2) {
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return DOUBLE_HOLD;
+    else return DOUBLE_TAP;
+  }
+  return MORE_TAPS;
+}
+
+static tap dance_state[2];
+
+enum tap_dance_codes {
+  DANCE_0,       // TD0:  hold: L-Shift; double-tap OSL(_EMACS_0) tap-then-hold: MO(_NAVI) 
+  DANCE_1,       // TD1:  hold: R-Ctrl; double-tap OSL(_EMACS_0) tap-then-hold: MO(_NAVI) 
+};                                                                                                     
+
+
+void dance_0_finished(tap_dance_state_t *state, void *user_data) {
+  dance_state[0].step = dance_step(state);
+  switch (dance_state[0].step) {
+  case SINGLE_TAP: register_code16(KC_LSFT); break;
+  case SINGLE_HOLD: register_code16(KC_LSFT); break;
+  case DOUBLE_TAP: set_oneshot_layer(_EMACS_0, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break; 
+  case DOUBLE_HOLD: layer_on(_NAVI); break;
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_LSFT); register_code16(KC_LSFT);
+  case MORE_TAPS: break;
+  }
+}
+
+void dance_0_reset(tap_dance_state_t *state, void *user_data) {
+  switch (dance_state[0].step) {
+  case SINGLE_TAP: unregister_code16(KC_LSFT); break;
+  case SINGLE_HOLD: unregister_code16(KC_LSFT); break;
+  case DOUBLE_TAP: break;
+  case DOUBLE_HOLD: layer_off(_NAVI); break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_LSFT); break;
+  }
+  dance_state[0].step = 0;
+}
+
+
+void dance_1_finished(tap_dance_state_t *state, void *user_data) {
+  dance_state[1].step = dance_step(state);
+  switch (dance_state[1].step) {
+  case SINGLE_TAP: register_code16(KC_RSFT); break;
+  case SINGLE_HOLD: register_code16(KC_RSFT); break;
+  case DOUBLE_TAP: set_oneshot_layer(_EMACS_0, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+  case DOUBLE_HOLD: layer_on(_NAVI); break; 
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_RSFT); register_code16(KC_RSFT);
+  case MORE_TAPS: break;
+  }
+}
+
+void dance_1_reset(tap_dance_state_t *state, void *user_data) {
+  switch (dance_state[1].step) {
+  case SINGLE_TAP: unregister_code16(KC_RSFT); break;
+  case SINGLE_HOLD: unregister_code16(KC_RSFT); break;
+  case DOUBLE_TAP: break;
+  case DOUBLE_HOLD: layer_off(_NAVI); break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_RSFT); break;
+  case MORE_TAPS: break;
+  }
+  dance_state[1].step = 0;
+}
+
+
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
 
@@ -15,17 +105,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ,-----------------------------------------------------------.         
         |  F1|  F2|  F3|  F4|  F5|  F6|  F7|  F8|  F9| F10| F11| F12|         
         `-----------------------------------------------------------'         
-   ,----------------------------------------------------+-------------------.  
-   |E/`~| LT3|  2@|  3#|  4$|  5%|  6^|  7&|  8*|  9(|  0)|  [{|  ]}|  Bspc |  
-   |------+----+----+----+----+----+----+----+----+----+----+----+----+-----|  
-   |   LT1| '" |  ,<|  .>|  P |  Y |  F |G/Pu| C/U|R/Pd|L/PS|//In|=/SL|  LT2|  
-   |--------+----+----+----+----+----+----+----+----+----+----+----+--------|  
-   | Fn     |  A |  O |  E |  U |  I |D/Hm| H/L| T/D| N/R|  S |  -_|  Enter |                  
-   |-----+---------+----+----+----+----+----+----+----+----+----+-----------| 
-   | LSht|  Menu/;:|  Q |  J |  K |  X |B/Ed|  M |  W |  V |  Z |   RSht    | 
-   |-----+-----+-----+------------------------------+-----+-----+-----+-----| 
-   | LC  | LG  | LA  |                              | RA  | Pn  | Fn  | RC  | 
-   `------------------------------------------------------------------------'  
+	,----------------------------------------------------+-------------------.  
+	|E/`~| LT3|  2@|  3#|  4$|  5%|  6^|  7&|  8*|  9(|  0)|  [{|  ]}|  Bspc |  
+	|------+----+----+----+----+----+----+----+----+----+----+----+----+-----|  
+	|   LT1| '" |  ,<|  .>|  P |  Y |  F |G/Pu| C/U|R/Pd|L/PS|//In|=/SL|  LT2|  
+	|--------+----+----+----+----+----+----+----+----+----+----+----+--------|  
+	| Fn     |  A |  O |  E |  U |  I |D/Hm| H/L| T/D| N/R|  S |  -_|  Enter |                  
+	|-----+---------+----+----+----+----+----+----+----+----+----+-----------| 
+	| LSht|  Menu/;:|  Q |  J |  K |  X |B/Ed|  M |  W |  V |  Z |   RSht    | 
+	|-----+-----+-----+------------------------------+-----+-----+-----+-----| 
+	| LC  | LG  | LA  |                              | RA  | Pn  | Fn  | RC  | 
+	`------------------------------------------------------------------------'  
 
     LT1:  Pressed activate _EMACS_0, tap is tab
     LT2:  Pressed activate _EMCAS_0, tap is backslash, Fn + / => Pause
@@ -70,17 +160,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ,-----------------------------------------------------------.   
         |    |    |    |    |    |    |    |    |    |    |    |    |   
         `-----------------------------------------------------------'   
-   ,------------------------------------------------------------------------. 
-   |    |    |    |    |    |    |    |    |    |    |    |    |    |       | 
-   |------+----+----+----+----+----+----+----+----+----+----+----+----+-----| 
-   |      |    |    |    |    |    | MWU| MB1| MCU| MB2|    |    |    |     | 
-   |--------+----+----+----+----+----+----+----+----+----+----+----+--------| 
-   |        | MB1|    |    |    |    | MWL| MBL| MB3| MCR| MWR|    |        | 
-   |----------+----+----+----+----+----+----+----+----+----+----+-----------| 
-   |          |    |    |    |    |    | MWD|    | MCD|    |    |           | 
-   |-----+-----+-----+------------------------------+-----+-----+-----+-----|           
-   |     |     |     |                              |     |  Pn | Fn  |     |      
-   `------------------------------------------------------------------------' 
+	,------------------------------------------------------------------------. 
+	|    |    |    |    |    |    |    |    |    |    |    |    |    |       | 
+	|------+----+----+----+----+----+----+----+----+----+----+----+----+-----| 
+	|      |    |    |    |    |    | MWU| MB1| MCU| MB2|    |    |    |     | 
+	|--------+----+----+----+----+----+----+----+----+----+----+----+--------| 
+	|        | MB1|    |    |    |    | MWL| MBL| MB3| MCR| MWR|    |        | 
+	|----------+----+----+----+----+----+----+----+----+----+----+-----------| 
+	|          |    |    |    |    |    | MWD|    | MCD|    |    |           | 
+	|-----+-----+-----+------------------------------+-----+-----+-----+-----|           
+	|     |     |     |                              |     |  Pn | Fn  |     |      
+	`------------------------------------------------------------------------' 
 
    
    */
@@ -124,17 +214,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           ,-----------------------------------------------------------. 
           |    |    |    |    |    |    |    |    |    |    |    |    |	
           `-----------------------------------------------------------'	
-   ,--------------------------------------------------------------------------. 
-   | QM16 | QM5| QW6| QM7|QM11|QM17|QM13|    |    |QM25| QM4|    |    |  QM15 | 
-   |-------+----+----+----+----+----+----+----+----+----+----+----+----+------| 
-   |       |QM26|QM27|QM28|QM14|    | QM0|    |QM22|QM23|QM20| QM9|QM10|      |  
-   |--------+----+----+----+----+----+----+----+----+----+----+----+----------| 
-   |        |QM29|QM30|QM31|QM19|QM24|QM12|    |QM21|    | QM1|    |          | 
-   |---------+----+----+----+----+----+----+----+----+----+----+--------------| 
-   |         |    |QM18|    | QM3|    | QM2|    | QM8|    |    |              | 
-   |-----+-----+-----+--------------------------------+-----+-----+-----+-----|           
-   |     |     |     |                                |     |     |     |     |        
-   `--------------------------------------------------------------------------' 
+	  ,--------------------------------------------------------------------------. 
+	  | QM16 | QM5| QW6| QM7|QM11|QM17|QM13|    |    |QM25| QM4|    |    |  QM15 | 
+	  |-------+----+----+----+----+----+----+----+----+----+----+----+----+------| 
+	  |       |QM26|QM27|QM28|QM14|    | QM0|    |QM22|QM23|QM20| QM9|QM10|      |  
+	  |--------+----+----+----+----+----+----+----+----+----+----+----+----------| 
+	  |        |QM29|QM30|QM31|QM19|QM24|QM12|    |QM21|    | QM1|    |          | 
+	  |---------+----+----+----+----+----+----+----+----+----+----+--------------| 
+	  |         |    |QM18|    | QM3|    | QM2|    | QM8|    |    |              | 
+	  |-----+-----+-----+--------------------------------+-----+-----+-----+-----|           
+	  |     |     |     |                                |     |     |     |     |        
+	  `--------------------------------------------------------------------------' 
 
 
         QM0:   C-x C-f  open file 

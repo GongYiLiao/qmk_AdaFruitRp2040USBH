@@ -22,3 +22,7 @@
 //#define NO_ACTION_LAYER
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
+
+
+#define TAPPING_TERM 150
+#define TAPPING_TERM_PER_KE
