@@ -4,14 +4,14 @@
 
 This is based on [Sekigon's Keyboard Quantizer mini-full branch](https://github.com/sekigon-gonnoc/qmk_firmware/tree/keyboard/sekigon/keyboard_quantizer/mini-full/keyboards/sekigon/keyboard_quantizer/mini)
 
-The change made here is to specify to `DP+` Pin as 16 (thus `DP-` is 17) and the 5V pin (18) in `c1_usbh.c`:
+The change made here is to specify `DP+` Pin as 16 (thus `DP-` is 17) and the 5V pin (18) in `c1_usbh.c`:
 
 ```
 // Initialize USB host stack on core1
 void c1_usbh(void) {
     pio_usb_configuration_t pio_cfg = PIO_USB_DEFAULT_CONFIG;
     pio_cfg.pin_dp                  = 16;
-    pio_cfg.extra_error_retry_count = 10;
+    // pio_cfg.extra_error_retry_count = 10;
     pio_cfg.skip_alarm_pool         = true;
     tuh_configure(1, TUH_CFGID_RPI_PIO_USB_CONFIGURATION, &pio_cfg);
 
@@ -35,10 +35,13 @@ I made some layouts in `info.json` and corresponding `keymap.c` for DVORAK typis
 
 ## How to use this repository
 
-After [setup your qmk envorinment](), clone this repository to `keyboards/converter` then run
+After [setup your qmk envorinment](https://github.com/qmk/qmk_firmware/blob/master/docs/newbs_getting_started.md), clone this repository to `keyboards/converter` then run
 
 ```
-git clone https://github.com/GongYiLiao/qmk_AdaFruitRp2040USBH.git _your_qmk_repo/keyboards/converter/adafruit_rp2040_usbh 
+git clone https://github.com/GongYiLiao/qmk_AdaFruitRp2040USBH.git _your_qmk_repo/keyboards/converter/adafruit_rp2040_usbh
+cd _your_qmk_repo/keyboards/converter/adafruit_rp2040_usbh
+git submodule update --init --recursive
+cd ../../..
 make converter/adafruit_rp2040_usbh:_your_choice:uf2 
 ```
 
