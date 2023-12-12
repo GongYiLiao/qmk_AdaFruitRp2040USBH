@@ -23,6 +23,7 @@
 //#define NO_ACTION_TAPPING
 //#define NO_ACTION_ONESHOT
 
+#define FORCE_NKRO
 
 #define TAPPING_TERM 150
-#define TAPPING_TERM_PER_KE
+// #define TAPPING_TERM_PER_KEY

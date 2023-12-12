@@ -8,6 +8,168 @@ enum layers {
   _EMACS_0,
 };
 
+
+typedef struct {
+  bool is_press_action;
+  uint8_t step;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD,
+  DOUBLE_TAP,   
+  TAP_THEN_HOLD,
+  DOUBLE_SINGLE_TAP,
+  MORE_TAPS
+};
+
+uint8_t dance_step(tap_dance_state_t *state);
+
+uint8_t dance_step(tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed) return SINGLE_TAP;
+    else return SINGLE_HOLD;
+  } else if (state->count == 2) {
+    if (state->interrupted) return DOUBLE_SINGLE_TAP;
+    else if (state->pressed) return TAP_THEN_HOLD;
+    else return DOUBLE_TAP;
+  }
+  return MORE_TAPS;
+}
+
+enum tap_dance_codes {
+  DANCE_0,       // TD0:  hold: L-Shift; double-tap OSL(_EMACS_0) tap-then-hold: MO(_NAVI) 
+  DANCE_1,       // TD1:  hold: R-Ctrl; double-tap OSL(_EMACS_0) tap-then-hold: MO(_NAVI)
+  DANCE_2,       // TD2:  tap: mouse right click, hold: mouse middle click
+  DANCE_3,       // TD3:  tap: decrease volume, hold: mute
+};                                                                                                     
+
+static tap dance_state[3];
+
+
+void dance_0_finished(tap_dance_state_t *state, void *user_data) {
+  dance_state[0].step = dance_step(state);
+  switch (dance_state[0].step) {
+  case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_LSFT)); break;
+  case SINGLE_HOLD: register_code16(KC_LSFT); break;
+  case DOUBLE_TAP: set_oneshot_layer(_EMACS_0, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break; 
+  case TAP_THEN_HOLD: layer_on(_NAVI); break;
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_LSFT); register_code16(KC_LSFT);
+  case MORE_TAPS: break;
+  }
+}
+
+void dance_0_reset(tap_dance_state_t *state, void *user_data) {
+  switch (dance_state[0].step) {
+  case SINGLE_TAP: break;
+  case SINGLE_HOLD: clear_oneshot_mods(); unregister_code16(KC_LSFT); break;
+  case DOUBLE_TAP: break;
+  case TAP_THEN_HOLD: break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_LSFT); break;
+  }
+  dance_state[0].step = 0;
+}
+
+
+void dance_1_finished(tap_dance_state_t *state, void *user_data) {
+  dance_state[1].step = dance_step(state);
+  switch (dance_state[1].step) {
+  case SINGLE_TAP: set_oneshot_mods(MOD_BIT(KC_RSFT)); break;
+  case SINGLE_HOLD: register_code16(KC_RSFT); break;
+  case DOUBLE_TAP: set_oneshot_layer(_EMACS_0, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break;
+  case TAP_THEN_HOLD: layer_on(_NAVI); break; 
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_RSFT); register_code16(KC_RSFT);
+  case MORE_TAPS: break;
+  }
+}
+
+void dance_1_reset(tap_dance_state_t *state, void *user_data) {
+  switch (dance_state[1].step) {
+  case SINGLE_TAP: break;
+  case SINGLE_HOLD: unregister_code16(KC_RSFT); break;
+  case DOUBLE_TAP: break;
+  case TAP_THEN_HOLD: break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_RSFT); break;
+  case MORE_TAPS: break;
+  }
+  dance_state[1].step = 0;
+}
+
+
+
+void dance_2_finished(tap_dance_state_t *state, void *user_data) {
+  dance_state[2].step = dance_step(state);
+  switch (dance_state[1].step) {
+  case SINGLE_TAP: register_code16(KC_BTN2); break;
+  case SINGLE_HOLD: register_code16(KC_BTN3); break;
+  case DOUBLE_TAP:  break;
+  case TAP_THEN_HOLD:  break; 
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_BTN2); register_code16(KC_BTN2);
+  case MORE_TAPS: break;
+  }
+}
+
+void dance_2_reset(tap_dance_state_t *state, void *user_data) {
+  switch (dance_state[2].step) {
+  case SINGLE_TAP: unregister_code16(KC_BTN2); break;
+  case SINGLE_HOLD: unregister_code16(KC_BTN3); break;
+  case DOUBLE_TAP: break;
+  case TAP_THEN_HOLD: break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_BTN2); break;
+  case MORE_TAPS: break;
+  }
+  dance_state[2].step = 0;
+}
+
+
+
+void dance_3_finished(tap_dance_state_t *state, void *user_data) {
+  dance_state[3].step = dance_step(state);
+  switch (dance_state[1].step) {
+  case SINGLE_TAP: register_code16(KC_VOLD); break;
+  case SINGLE_HOLD: register_code16(KC_MUTE); break;
+  case DOUBLE_TAP:  break;
+  case TAP_THEN_HOLD:  break; 
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_VOLD); register_code16(KC_VOLD);
+  case MORE_TAPS: break;
+  }
+}
+
+void dance_3_reset(tap_dance_state_t *state, void *user_data) {
+  switch (dance_state[3].step) {
+  case SINGLE_TAP: unregister_code16(KC_VOLD); break;
+  case SINGLE_HOLD: unregister_code16(KC_MUTE); break;
+  case DOUBLE_TAP: break;
+  case TAP_THEN_HOLD: break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_VOLD); break;
+  case MORE_TAPS: break;
+  }
+  dance_state[3].step = 0;
+}
+
+
+tap_dance_action_t tap_dance_actions[] = {
+  [DANCE_0] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_0_finished, dance_0_reset),
+  [DANCE_1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_1_finished, dance_1_reset),
+  [DANCE_2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_2_finished, dance_2_reset),
+  [DANCE_3] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_3_finished, dance_2_reset),
+};
+
+
+enum combos {
+  QJ_OSL_EMACS_0 = 0,
+  WV_OSL_EMACS_0,
+};
+
+const uint16_t PROGMEM combo_0[] = {KC_Q, KC_J, COMBO_END};
+const uint16_t PROGMEM combo_1[] = {KC_W, KC_V, COMBO_END};
+
+combo_t key_combos[] = {
+  [QJ_OSL_EMACS_0] = COMBO(combo_0, OSL(_EMACS_0)),
+  [WV_OSL_EMACS_0] = COMBO(combo_1, OSL(_EMACS_0)),
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
 
@@ -18,18 +180,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    ,----------------------------------------------------+-------------------. ,--------------. ,-------------------.
    |  `~|  1!|  2@|  3#|  4$|  5%|  6^|  7&|  8*|  9(|  0)|  [{|  ]}|  Bspc | | In | Hm | PU | |  Nl|  P/|  P*|  P-|
    |------+----+----+----+----+----+----+----+----+----+----+----+----+-----| |----+----+----| |----+----+----+----|
-   |   LT1| '" |  ,<|  .>|  P |  Y |  F |  G |  C |  R |  L |  /?|  =+|  LT2| | Dl | Ed | PD | |  P7|  P8|  P9|    |
+   |   Tab| '" |  ,<|  .>|  P |  Y |  F |  G |  C |  R |  L |  /?|  =+|  \| | | Dl | Ed | PD | |  P7|  P8|  P9|    |
    |--------+----+----+----+----+----+----+----+----+----+----+----+--------| `--------------' |----+----+----+  P+|
-   | MO1    |  A |  O |  E |  U |  I |  D |  H |  T |  N |  S |  -_|  Enter |                  |  P4|  P5|  P6|    |
+   |   MO1  |  A |  O |  E |  U |  I |  D |  H |  T |  N |  S |  -_|  Enter |                  |  P4|  P5|  P6|    |
    |----------+----+----+----+----+----+----+----+----+----+----+-----------|      ,----.      |----+----+----+----|
-   | LSht     |  ;:|  Q |  J |  K |  X |  B |  M |  W |  V |  Z |   RSht    |      | Up |      |  P1|  P2|  P3|    |
+   |    TD1   |  ;:|  Q |  J |  K |  X |  B |  M |  W |  V |  Z |    TD2    |      | Up |      |  P1|  P2|  P3|    |
    |-----+-----+-----+------------------------------+-----+-----+-----+-----| ,----+----+----. +---------+----+  PE|          
    | LC  | LG  | LA  |                              | RA  | RG  | Mn  | RC  | | Lf | Dn |  Rt| |    P0   |  P.|    |     
    `------------------------------------------------------------------------' `--------------' `-------------------'
 
-    LT1:  Pressed activate _EMACS_0, tap is tab
-    LT2:  Pressed activate _EMCAS_0, tap is backslash
-    MO1:  Fn to _NAVI
+    LT1:  tap as =, pressed activate _NAVI 
+    TD0:  tap/hold: Left Shift, double-tap OSL(_EMACS_0), tap-the-held: TO(_NAVI) 
+    TD1:  tap/hold: Right Shift, double-tap OSL(_EMACS_0), tap-the-held: TO(_NAVI)
+    CB0:  Q + J = OSL(_EMACS_0)
+    CB1:  W + V = OSL(_EMACS_0)
 
    */
   [_DVORAK] = LAYOUT_ansi(
@@ -44,23 +208,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		          KC_BSPC,                                                                                               // Backspace 
 			  KC_INS,                   KC_HOME,         KC_PGUP,                                                    // Insert, Home, PageUp
 			  KC_NUM,                   KC_PSLS,         KC_PAST,          KC_PMNS,                                  // NumLock, NP /, NP *, NP - 
-			  LT(_EMACS_0, KC_TAB),                                                                                  // Tab
+			  KC_TAB ,                                                                                               // Tab
 			  KC_QUOT,                  KC_COMM,         KC_DOT,           KC_P,         KC_Y,                       // Q - T
 			  KC_F,                     KC_G,            KC_C,             KC_R,         KC_L,                       // Y - P
 			  KC_SLSH,                  KC_EQL,                                                                      // [, ], 
-			  LT(_EMACS_0, KC_BSLS),                                                                                 // back slash
+			  KC_BSLS,                                                                                               // back slash
 			  KC_DEL,                   KC_END,          KC_PGDN,                                                    // Del, End, PageDown
 			  KC_P7,                    KC_P8,           KC_P9,            KC_PPLS,                                  // NP 7 - 9, NP + 
-			  MO(_NAVI),                                                                                             // Capslock
+			  LT(_NAVI, KC_EQL),                                                                                     // Capslock
 			  KC_A,                     KC_O,            KC_E,             KC_U,         KC_I,                       // A - G
 			  KC_D,                     KC_H,            KC_T,             KC_N,         KC_S,                       // D - semi-column
 			  KC_MINS,                                                                                               // quote 
 			  KC_ENT,                                                                                                // Enter 
 			  KC_P4,                    KC_P5,           KC_P6,                                                      // NP 4 - 6,
-			  KC_LSFT,                                                                                               // Left Shift
+			  TD(DANCE_0),                                                                                           // Left Shift
 			  KC_SCLN,                  KC_Q,            KC_J,             KC_K,         KC_X,                       // Z - B
 			  KC_B,                     KC_M,            KC_W,             KC_V,         KC_Z,                       // N - slash
-			  KC_RSFT,                                                                                               // right shift, 
+			  TD(DANCE_1),                                                                                           // right shift, 
 			  KC_UP,                                                                                                 // Up 
 			  KC_P1,                    KC_P2,           KC_P3,            KC_PENT,                                  // NP 1 -3, NP Enter
 			  KC_LCTL,                  KC_LGUI,         KC_LALT,                                                    // Left Control, Left Super, Left Alt         
@@ -76,13 +240,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    |    | |    |    |    |    | |    |    |    |    | |    |    |    |    |   |    |    |    |
    `----' `-------------------' '-------------------' `-------------------'   `--------------'
    ,------------------------------------------------------------------------. ,--------------. ,-------------------.
-   |    |    |    |    |    |    |    |    |    |    |    |    |    |       | |    |    |    | |    |    |    |    |
+   | TO1  |    |    |    |    |    |    |    |    |    |    |    |    |       | |    |    |    | |    |    |    |    |
    |------+----+----+----+----+----+----+----+----+----+----+----+----+-----| |----+----+----| |----+----+----+----|
-   |      |    |    |    |    |    |    |    |    |    |    |    |    |     | |    |    |    | | MB1| MCU| MB2|    |
+   |      | V+ |MB23| MCU| MB1| MWU|    |    |    |    |    |    |    |     | |    |    |    | | MB1| MCU| MB2|    |
    |--------+----+----+----+----+----+----+----+----+----+----+----+--------| `--------------' |----+----+----+ WHU|
-   |        | MB1|    |    |    |    |    |    |    |    |    |    |        |                  | MCL| MB3| MCR|    |
+   |   LT1  | MWL| MCL| MCD| MCR| MWR|    |    |    |    |    |    |        |                  | MCL| MB3| MCR|    |
    |----------+----+----+----+----+----+----+----+----+----+----+-----------|      ,----.      |----+----+----+----|
-   |          |    |    |    |    |    |    |    |    |    |    |           |      |    |      | WHL| MCD| WHR|    |
+   |          |V-/M| WBK| WSC| WFW| MWD|    |    |    |    |    |           |      |    |      | WHL| MCD| WHR|    |
    |-----+-----+-----+------------------------------+-----+-----+-----+-----| ,----+----+----. +---------+----+ WHD|          
    |     |     |     |                              |     |     |     |     | |    |    |    | |         |    |    |     
    `------------------------------------------------------------------------' `--------------' `-------------------'
@@ -91,11 +255,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_NAVI] = LAYOUT_ansi(
-			KC_NO,                                                                                     // ESC
+			TO(_DVORAK),                                                                               // ESC
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,       KC_NO,         // F1 - F6
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,       KC_NO,         // F7 - F12 
 			NK_ON,        KC_NO,           KC_NO,                                                      // Print screen, scroll lock, Pause 
-			KC_NO,                                                                                     // backquote 
+			TO(_DVORAK),                                                                               // backquote 
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // 1 - 5
 			KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // 6 - 0
 			KC_NO,        KC_NO,                                                                       // -, + 
