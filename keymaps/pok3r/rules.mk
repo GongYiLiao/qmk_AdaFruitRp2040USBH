@@ -4,4 +4,7 @@ TAP_DANCE_ENABLE = yes
 COMBO_ENABLE = yes
 NKRO_ENABLE = yes
 
-SRC += tap_dance.c key_process.c
+VPATH += keyboards/converter/adafruit_rp2040_usbh/keymaps/common
+
+SRC += ../common/lkg_tap_dances.c
+SRC += ../common/lkg_key_process.c

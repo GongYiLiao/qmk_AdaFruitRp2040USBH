@@ -1,6 +1,6 @@
-#include "pok3r_km.h"
+#include "lkg_km_common.h"
 
-#include "combos.h"
+#include "lkg_combos.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
