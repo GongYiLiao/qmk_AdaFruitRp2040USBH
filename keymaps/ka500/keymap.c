@@ -14,15 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include QMK_KEYBOARD_H
-
-enum kina500_layers {
-	_DVORAK = 0, 
-	_NAVI_0, 
-	_NAVI_1, 
-	_EMACS_0
-};
-
+#include "lkg_km_common.h"
+#include "lkg_tap_dances.h"
+#include "lkg_combos.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -88,19 +82,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		   
 		                                   KC_P1,              KC_P2,              KC_P3,                KC_PENT,             
 		   
-			 LT(_NAVI_1, KC_GRV),      LGUI_T(KC_APP),     KC_LEFT,            KC_RGHT,
-			 KC_UP,                    KC_DOWN,            RGUI_T(KC_LBRC),    LT(_NAVI_1, KC_RBRC),
+			 LT(_NAVI, KC_GRV),      LGUI_T(KC_APP),     KC_LEFT,            KC_RGHT,
+			 KC_UP,                    KC_DOWN,            RGUI_T(KC_LBRC),    LT(_NAVI, KC_RBRC),
 
                                                    KC_PDOT,
 		   
 			 KC_LCTL,                  KC_LALT,
 			 LALT_T(KC_RALT),          KC_RCTL,
 		   
-			 LT(_NAVI_0, KC_HOME),     LT(_EMACS_0, KC_END),
+			 LT(_NAVI, KC_HOME),     LT(_EMACS_0, KC_END),
 		   
 			 KC_SPC,                   KC_BSPC,
 
-			 LT(_NAVI_0, KC_PGUP),     LT(_EMACS_0, KC_PGDN),
+			 LT(_NAVI, KC_PGUP),     LT(_EMACS_0, KC_PGDN),
 
 			 KC_ENTER,                 KC_SPC,
 
@@ -133,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    `--------------------'         `---------------------'  `------'
  */
 
-[_NAVI_0] = LAYOUT_ka500(
+[_NAVI] = LAYOUT_ka500(
 		   QK_BOOT,
 		   NK_ON,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
 		   KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
@@ -212,9 +206,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                    |      | DEL  |------|         |-------|      |      |  |      | 
                                    |      |      |      |         |       |      |      |  |      | 
                                    `--------------------'         `--------------------'   `------' 
- */											            
+ 											            
 
-[_NAVI_1] = LAYOUT_ka500(
+[_NAVI] = LAYOUT_ka500(
 			 KC_NO,
 			 KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
 			 KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
@@ -269,6 +263,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		         KC_NO
 			 ),
 
+*/
 
 /* 
  
@@ -394,108 +389,4 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-    case QK_MACRO_0:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_F)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_1:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_S)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_2:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_B)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_3:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_K)SS_TAP(X_ENT));
-      return false;
-    case QK_MACRO_4:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_0));
-      return false;
-    case QK_MACRO_5:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_1));
-      return false;
-    case QK_MACRO_6:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_2));
-      return false;
-    case QK_MACRO_7:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_3));
-      return false;
-    case QK_MACRO_8:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_W)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_9:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LSFT)SS_TAP(X_LBRC)SS_UP(X_LSFT));
-      return false;
-    case QK_MACRO_10:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LSFT)SS_TAP(X_RBRC)SS_UP(X_LSFT));
-      return false;
-    case QK_MACRO_11:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_4)SS_TAP(X_B));
-      return false;
-    case QK_MACRO_12:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_4)SS_TAP(X_D));
-      return false;
-    case QK_MACRO_13:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LSFT)SS_TAP(X_6)SS_UP(X_LSFT));
-      return false;
-    case QK_MACRO_14:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_P)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_15:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_5)SS_TAP(X_0));
-      return false;
-    case QK_MACRO_16:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_5)SS_TAP(X_1));
-      return false;
-    case QK_MACRO_17:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_5)SS_TAP(X_2));
-      return false;
-    case QK_MACRO_18:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_Q)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_19:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_U)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_20:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_L)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_21:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_T)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_22:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_C)SS_UP(X_LCTL)SS_DOWN(X_LCTL)SS_TAP(X_C)SS_UP(X_LCTL));
-      return false;
-    case QK_MACRO_23:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_S));
-      return false;
-    case QK_MACRO_24:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_I));
-      return false;
-    case QK_MACRO_25:
-      SEND_STRING(SS_DOWN(X_LSFT)SS_TAP(X_9)SS_UP(X_LSFT)SS_DOWN(X_LSFT)SS_TAP(X_0)SS_UP(X_LSFT)SS_TAP(X_LEFT));
-      return false;
-    case QK_MACRO_26:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_R));
-      return false;
-    case QK_MACRO_27:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_K));
-      return false;
-    case QK_MACRO_28:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_O));
-      return false;
-    case QK_MACRO_29:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_T));
-      return false;
-    case QK_MACRO_30:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_C));
-      return false;
-    case QK_MACRO_31:
-      SEND_STRING(SS_DOWN(X_LCTL)SS_TAP(X_X)SS_UP(X_LCTL)SS_TAP(X_R)SS_TAP(X_Y));
-      return false;
-    }
-  }
-
-  return true;
-};
 

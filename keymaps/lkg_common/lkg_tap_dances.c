@@ -1,5 +1,7 @@
 #include "lkg_km_common.h"
 
+#include "lkg_tap_dances.h"
+
 static tap dance_state[5];
 
 uint8_t dance_step(tap_dance_state_t *state) {

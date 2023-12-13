@@ -27,3 +27,8 @@
 
 #define TAPPING_TERM 150
 // #define TAPPING_TERM_PER_KEY
+
+/* #ifdef CRT0_EXTRA_CORES_NUMBER */
+/* #undef CRT0_EXTRA_CORES_NUMBER */
+/* #define CRT0_EXTRA_CORES_NUMBER 1 */
+/* #endif */

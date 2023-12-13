@@ -1,6 +1,9 @@
 #include "lkg_km_common.h"
 
+#include "lkg_tap_dances.h"
+
 #include "lkg_combos.h"
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
