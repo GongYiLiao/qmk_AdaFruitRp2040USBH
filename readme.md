@@ -50,4 +50,4 @@ where `_your_choice` can be `ka500` for Kinesis Advantage MPC (KB500), `ansi` fo
 
 ## TODO:
 
-* Make NeoPixel to indicat the layer 
+* Make NeoPixel to indicate the current layer 
