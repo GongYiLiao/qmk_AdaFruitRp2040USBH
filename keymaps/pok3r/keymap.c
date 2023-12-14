@@ -67,10 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /*
       
              ,-----------------------------------------------------------.   
-             |    |    |    |    |    |    |    |    |    |    |    |    |   
+             | F13| F14| F15| F16| F17| F18| F19| F20| F21| F22| F23| F24|   
              `-----------------------------------------------------------'   
 	,------------------------------------------------------------------------. 
-	| L0 |    |    |    |    |    |    |    |    |    |    |    |    |       | 
+	| L0 | TD4| TD5| TD6| TD7| TD8| TD9|TD10|TD11|TD12|TD13|TD14|TD15|       | 
 	|------+----+----+----+----+----+----+----+----+----+----+----+----+-----| 
 	|      | V+ | TD2| MCU| MB1| MWU|    |    |    |    |    |    |    |     | 
 	|--------+----+----+----+----+----+----+----+----+----+----+----+--------| 
@@ -87,36 +87,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_NAVI] = LAYOUT_pok3r(
-			 TO(_DVORAK),                                                                               // ESC
-			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,       KC_NO,         // F1 - F6
-			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,       KC_NO,         // F7 - F12 
-			 KC_NO,        KC_NO,           KC_NO,                                                      // Print screen, scroll lock, Pause 
-			 KC_NO,                                                                                     // backquote 
-			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // 1 - 5
-			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // 6 - 0
-			 KC_NO,        KC_NO,                                                                       // -, + 
-			 NK_ON,                                                                                     // Backspace 
-			 KC_NO,        KC_NO,           KC_NO,                                                      // Insert, Home, PageUp
-			 KC_NO,                                                                                     // Tab
-			 KC_VOLU,      TD(DANCE_2),     KC_MS_U,          KC_BTN1,      KC_WH_U,                    // Q - T
-			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // Y - P
-			 KC_NO,        KC_NO,                                                                       // [, ], 
-			 KC_NO,                                                                                     // back slash
-			 KC_NO,        KC_NO,           KC_NO,                                                      // Del, End, PageDown
-			 KC_NO,                                                                                     // Capslock
-			 KC_WH_L,      KC_MS_L,         KC_MS_D,          KC_MS_R,      KC_WH_R,                    // A - G
-			 KC_BTN1,      KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // D - semi-column
-			 KC_NO,                                                                                     // quote 
-			 KC_NO,                                                                                     // Enter 
-			 KC_NO,                                                                                     // Left Shift
-			 TD(DANCE_3),  KC_WBAK,         KC_WSCH,          KC_WFWD,      KC_WH_D,                    // Z - B
-			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                      // N - slash
-			 KC_NO,                                                                                     // right shift, 
-			 KC_NO,                                                                                     // Up 
-			 KC_NO,        KC_NO,           KC_NO,                                                      // Left Control, Left Super, Left Alt         
-			 KC_NO,                                                                                     // Spacebar 
-			 KC_NO,        KC_NO,           KC_NO,                                                      // Right Alt, App (Menu), Right control
-			 KC_NO,        KC_NO,           KC_NO                                                       // Left, Down, Right
+			 TO(_DVORAK),                                                                                // ESC
+			 KC_F13,       KC_F14,          KC_F15,           KC_F16,       KC_F17,       KC_F18,        // F1 - F6
+			 KC_F19,       KC_F20,          KC_F21,           KC_F22,       KC_F23,       KC_F24,         // F7 - F12 
+			 KC_NO,        KC_NO,           KC_NO,                                                       // Print screen, scroll lock, Pause 
+			 KC_NO,                                                                                      // backquote 
+			 TD(DANCE_4),  TD(DANCE_5),     TD(DANCE_6),      TD(DANCE_7),  TD(DANCE_8),                 // 1 - 5
+			 TD(DANCE_9),  TD(DANCE_10),    TD(DANCE_11),     TD(DANCE_12), TD(DANCE_13),                // 6 - 0
+			 KC_NO,        KC_NO,                                                                        // -, + 
+			 NK_ON,                                                                                      // Backspace 
+			 KC_NO,        KC_NO,           KC_NO,                                                       // Insert, Home, PageUp
+			 KC_NO,                                                                                      // Tab
+			 KC_VOLU,      TD(DANCE_2),     KC_MS_U,          KC_BTN1,      KC_WH_U,                     // Q - T
+			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                       // Y - P
+			 KC_NO,        KC_NO,                                                                        // [, ], 
+			 KC_NO,                                                                                      // back slash
+			 KC_NO,        KC_NO,           KC_NO,                                                       // Del, End, PageDown
+			 KC_NO,                                                                                      // Capslock
+			 KC_WH_L,      KC_MS_L,         KC_MS_D,          KC_MS_R,      KC_WH_R,                     // A - G
+			 KC_BTN1,      KC_NO,           KC_NO,            KC_NO,        KC_NO,                       // D - semi-column
+			 KC_NO,                                                                                      // quote 
+			 KC_NO,                                                                                      // Enter 
+			 KC_NO,                                                                                      // Left Shift
+			 TD(DANCE_3),  KC_WBAK,         KC_WSCH,          KC_WFWD,      KC_WH_D,                     // Z - B
+			 KC_NO,        KC_NO,           KC_NO,            KC_NO,        KC_NO,                       // N - slash
+			 KC_NO,                                                                                      // right shift, 
+			 KC_NO,                                                                                      // Up 
+			 KC_NO,        KC_NO,           KC_NO,                                                       // Left Control, Left Super, Left Alt         
+			 KC_NO,                                                                                      // Spacebar 
+			 KC_NO,        KC_NO,           KC_NO,                                                       // Right Alt, App (Menu), Right control
+			 KC_NO,        KC_NO,           KC_NO                                                        // Left, Down, Right
 			 ),
   /* 
  
