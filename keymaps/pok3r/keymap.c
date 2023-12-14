@@ -21,15 +21,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	|----------+----+----+----+----+----+----+----+----+----+----+-----------| 
 	| TD0      |M/;:|  Q |  J |  K |  X |B/Ed|  M |  W |  V |  Z |   TD1     | 
 	|-----+-----+-----+------------------------------+-----+-----+-----+-----| 
-	| LC  | LG1 | LA  |                              | LA1 | Pn  | Fn  | RC  | 
+	| TD16| LG1 | TD18|                              |TD19 | Pn  | Fn  | TD17| 
 	`------------------------------------------------------------------------'  
 
-        TD0:  tap/hold: Left Shift, double-tap OSL(_EMACS_0), tap-the-held: TO(_NAVI) 
-        TD1:  tap/hold: Right Shift, double-tap OSL(_EMACS_0), tap-the-held: TO(_NAVI)
-	LG1:  tap: menu key, held: GUI key
-	LA1:  tap: right-alt, held: left-alt 
-        CB0:  Q + J = OSL(_EMACS_0)
-        CB1:  W + V = OSL(_EMACS_0)
+        TD0:   tap/hold: Left Shift, double-tap OSL(_EMACS_0), tap-then-held: TO(_NAVI) 
+        TD1:   tap/hold: Right Shift, double-tap OSL(_EMACS_0), tap-then-held: TO(_NAVI)
+	TD16:  tap: OSM(LCTL), held: LCTL;  tap-then-held: MO(NAVI)
+        TD17:  tap: OSM(RCTL), held: RCTL;  tap-then-held: MO(NAVI)
+        TD18:  tap: OSM(LALT), held: LALT;  tap-then-held: MO(NAVI)
+	TD19:  tap: RALT,      held: LALT;  tap-then-held: MO(NAVI)
+	LG1:   tap: menu key, held: GUI key
+	LA1:   tap: right-alt, held: left-alt 
+        CB0:   Q + J = OSL(_EMACS_0)
+        CB1:   W + V = OSL(_EMACS_0)
    */
   [_DVORAK] = LAYOUT_pok3r(
 			   KC_ESC,                                                                                                // ESC
@@ -58,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 			   KC_B,                     KC_M,            KC_W,             KC_V,         KC_Z,                       // N - slash
 			   TD(DANCE_1),                                                                                           // right shift, 
 			   KC_UP,                                                                                                 // Up 
-			   KC_LCTL,                  LGUI_T(KC_APP),  KC_LALT,                                                    // Left Control, Left Super, Left Alt         
+			   TD(DANCE_16),             LGUI_T(KC_APP),  TD(DANCE_18),                                               // Left Control, Left Super, Left Alt         
 			   KC_SPC,                                                                                                // Spacebar 
-			   LALT_T(KC_RALT),          KC_APP,          KC_RCTL,                                                    // Right Alt, Rigt Super, App (Menu), Right ctrl
+			   TD(DANCE_19),             KC_APP,          TD(DANCE_17),                                               // Right Alt, Rigt Super, App (Menu), Right ctrl
 			   KC_LEFT,                  KC_DOWN,         KC_RGHT                                                     // Left, Down, Right
 			   ),
 
@@ -84,17 +88,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         L0:  tap to _DVORAK
         TD2: tap: mouse button 2, held: mouse button 3
 	TD3: tap: volume down, held mute 
+        TD4: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD5: tap: F2, held: LCTL + F2, double-tap: LALT + F2, tap-then-held: LCTL+ALT+F2
+        TD6: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD7: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD8: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD9: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD10: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD11: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD12: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD13: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD14: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
+        TD15: tap: F1, held: LCTL + F1, double-tap: LALT + F1, tap-then-held: LCTL+ALT+F1
    */
 
   [_NAVI] = LAYOUT_pok3r(
 			 TO(_DVORAK),                                                                                // ESC
 			 KC_F13,       KC_F14,          KC_F15,           KC_F16,       KC_F17,       KC_F18,        // F1 - F6
-			 KC_F19,       KC_F20,          KC_F21,           KC_F22,       KC_F23,       KC_F24,         // F7 - F12 
+			 KC_F19,       KC_F20,          KC_F21,           KC_F22,       KC_F23,       KC_F24,        // F7 - F12 
 			 KC_NO,        KC_NO,           KC_NO,                                                       // Print screen, scroll lock, Pause 
 			 KC_NO,                                                                                      // backquote 
 			 TD(DANCE_4),  TD(DANCE_5),     TD(DANCE_6),      TD(DANCE_7),  TD(DANCE_8),                 // 1 - 5
 			 TD(DANCE_9),  TD(DANCE_10),    TD(DANCE_11),     TD(DANCE_12), TD(DANCE_13),                // 6 - 0
-			 KC_NO,        KC_NO,                                                                        // -, + 
+			 TD(DANCE_14), TD(DANCE_15),                                                                 // -, + 
 			 NK_ON,                                                                                      // Backspace 
 			 KC_NO,        KC_NO,           KC_NO,                                                       // Insert, Home, PageUp
 			 KC_NO,                                                                                      // Tab

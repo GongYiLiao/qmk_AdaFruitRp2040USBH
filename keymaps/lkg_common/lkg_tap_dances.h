@@ -37,6 +37,6 @@ enum tap_dance_codes {
   DANCE_15,      // TD15:   tap: LCTL-F12, double-tap LALT-F12
   DANCE_16,      // TD16:   tap: OSM(LCTL); hold: LCTL; double-tap: TO(_NAVI)
   DANCE_17,      // TD17:   tap: OSM(RCTL); hold: LCTL; double-tap: TO(_NAVI)
-  DANCE_18,      // TD18:   tap: OSM(LALT); hold: LALT; double-tap: OSL(_NAVI)
-  DANCE_19,      // TD19:   tap: OSM(RALT); hold: LALT; double-tap: OSL(_NAVI)
+  DANCE_18,      // TD18:   tap: OSM(LALT); hold: LALT; double-tap: OSL(_EMacs_0)
+  DANCE_19,      // TD19:   tap: RALT; hold: LALT; double-tap: OSL(_EMACS_0)
 };                                                                                                     

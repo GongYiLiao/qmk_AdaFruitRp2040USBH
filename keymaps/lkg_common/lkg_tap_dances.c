@@ -555,7 +555,7 @@ void dance_16_reset(tap_dance_state_t *state, void *user_data) {
   case SINGLE_TAP: break;
   case SINGLE_HOLD: clear_oneshot_mods(); unregister_code16(KC_LCTL); break;
   case DOUBLE_TAP: break;
-  case TAP_THEN_HOLD: break;
+  case TAP_THEN_HOLD: layer_off(_NAVI); break;
   case DOUBLE_SINGLE_TAP: unregister_code16(KC_LCTL); break;
   }
   dance_state[16].step = 0;
@@ -579,7 +579,7 @@ void dance_17_reset(tap_dance_state_t *state, void *user_data) {
   case SINGLE_TAP: break;
   case SINGLE_HOLD: clear_oneshot_mods(); unregister_code16(KC_RCTL); break;
   case DOUBLE_TAP: break;
-  case TAP_THEN_HOLD: break;
+  case TAP_THEN_HOLD: layer_off(_NAVI); break;
   case DOUBLE_SINGLE_TAP: unregister_code16(KC_RCTL); break;
   }
   dance_state[17].step = 0;
@@ -604,7 +604,7 @@ void dance_18_reset(tap_dance_state_t *state, void *user_data) {
   case SINGLE_TAP: break;
   case SINGLE_HOLD: clear_oneshot_mods(); unregister_code16(KC_LALT); break;
   case DOUBLE_TAP: break;
-  case TAP_THEN_HOLD: break;
+  case TAP_THEN_HOLD: layer_off(_NAVI); break;
   case DOUBLE_SINGLE_TAP: unregister_code16(KC_LALT); break;
   }
   dance_state[18].step = 0;
@@ -632,7 +632,7 @@ void dance_19_finished(tap_dance_state_t *state, void *user_data) {
   case SINGLE_HOLD: register_code16(KC_LALT); break;
   case DOUBLE_TAP: set_oneshot_layer(_EMACS_0, ONESHOT_START); clear_oneshot_layer_state(ONESHOT_PRESSED); break; 
   case TAP_THEN_HOLD: layer_on(_NAVI); break;
-  case DOUBLE_SINGLE_TAP: tap_code16(KC_LALT); register_code16(KC_LALT); break;
+  case DOUBLE_SINGLE_TAP: tap_code16(KC_RALT); register_code16(KC_RALT); break;
   case MORE_TAPS: break;
   }
 }
@@ -642,8 +642,8 @@ void dance_19_reset(tap_dance_state_t *state, void *user_data) {
   case SINGLE_TAP: unregister_code16(KC_RALT); break;
   case SINGLE_HOLD: clear_oneshot_mods(); unregister_code16(KC_LALT); break;
   case DOUBLE_TAP: break;
-  case TAP_THEN_HOLD: break;
-  case DOUBLE_SINGLE_TAP: unregister_code16(KC_LALT); break;
+  case TAP_THEN_HOLD: layer_off(_NAVI); break;
+  case DOUBLE_SINGLE_TAP: unregister_code16(KC_RALT); break;
   }
   dance_state[19].step = 0;
 }
