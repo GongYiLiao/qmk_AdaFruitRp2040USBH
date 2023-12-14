@@ -639,7 +639,7 @@ void dance_19_finished(tap_dance_state_t *state, void *user_data) {
 
 void dance_19_reset(tap_dance_state_t *state, void *user_data) {
   switch (dance_state[19].step) {
-  case SINGLE_TAP: unregister(KC_RALT); break;
+  case SINGLE_TAP: unregister_code16(KC_RALT); break;
   case SINGLE_HOLD: clear_oneshot_mods(); unregister_code16(KC_LALT); break;
   case DOUBLE_TAP: break;
   case TAP_THEN_HOLD: break;
