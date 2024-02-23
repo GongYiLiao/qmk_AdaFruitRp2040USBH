@@ -1,3 +1,6 @@
+
+#define COMBO_TERM 25
+
 #include QMK_KEYBOARD_H
 
 enum layers {
