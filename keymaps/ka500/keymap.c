@@ -20,6 +20,92 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+
+/*
+  
+   Keymap: (template)
+  
+   ,---------------------------------------------------------------------------------------------------.                      ,--------------------.        
+   |        |      |      |      |      |      |      |      |      |      |      |      |      |      |		      |      |      |      |        
+   |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------.      +------+------+------+------. 
+   |        |      |      |      |      |      |                           |      |      |      |      |      |        |      |      |      |      |      | 
+   |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|      +------+------+------+------+ 
+   |        |      |      |      |      |      |                           |      |      |      |      |      |        |      |      |      |      |      | 
+   |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|      +------+------+------+------+ 
+   |        |      |      |      |      |      |                           |      |      |      |      |      |        |      |      |      |      |      | 
+   |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|      +------+------+------+------+ 
+   |        |      |      |      |      |      |                           |      |      |      |      |      |        |      |      |      |      |      | 
+   `--------+------+------+------+------+------'                           `------+------+------+------+------+--------'      +------+------+------+------' 
+            |      |      |      |      |                                         |      |      |      |      |		                    |      |        
+            `---------------------------'                                          ---------------------------'		                     ------'        
+                                          ,-------------.         ,--------------.					                                    
+                                          |      |      |         |       |      |
+                                   ,------|------|------|         |-------+------+------.                                     ,------. 
+                                   |      |      |      |         |       |      |      |                                     |      | 
+                                   |      |      |------|         |-------|      |      |                                     |      | 
+                                   |      |      |      |         |       |      |      |                                     |      | 
+                                    --------------------'         `---------------------'                                     '------' 
+ 											            
+
+[_NAVI] = LAYOUT_ka500(
+			 KC_NO,
+			 KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
+			 KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
+			 KC_NO,               KC_NO,              KC_NO,
+
+			 KC_NO,               KC_NO,              KC_NO,
+		   
+			 LCTL(KC_F1),
+			 LCTL(KC_F2),         LCTL(KC_F3),        LCTL(KC_F4),      LCTL(KC_F5),      LCTL(KC_F6),
+			 LCTL(KC_F7),         LCTL(KC_F8),        LCTL(KC_F9),      LCTL(KC_F10),     LCTL(KC_F11),
+			 LCTL(KC_F12),
+		   
+		                              KC_NO,                               KC_NO,            KC_NO,             
+		   
+			 KC_NO,
+			 KC_NO,               KC_NO,              KC_NO,            KC_MPRV,          KC_VOLU,
+			 KC_FIND,             KC_NO,              KC_UP,            KC_NO,            KC_NO,
+			 KC_MPLY,
+		   
+		                              KC_NO,              KC_NO,            KC_NO,            KC_NO,             
+		   
+			 KC_STOP,
+			 KC_NO,               KC_NO,              KC_EXEC,          KC_NO,            KC_MUTE,
+			 KC_NO,               KC_HELP,            KC_NO,            KC_MNXT,          KC_SLCT,
+			 KC_AGIN,
+		   
+		                              KC_NO,              KC_NO,            KC_NO,            KC_NO,             
+
+			 KC_NO,
+			 KC_UNDO,             KC_CUT,             KC_COPY,          KC_PSTE,          KC_VOLD,
+			 KC_NO,               KC_MENU,            KC_NO,            KC_NO,            KC_NO,
+			 KC_NO,
+		   
+		                              KC_NO,              KC_NO,            KC_NO,            KC_NO,             
+
+			 KC_NO,               KC_NO,              LCA(KC_LEFT),     LCA(KC_RIGHT),
+			 LCA(KC_UP),          LCA(KC_DOWN),       KC_NO,            KC_NO,
+
+                                                                  KC_NO,
+		   
+			 KC_NO,               KC_NO,
+			 KC_NO,               KC_NO,
+		   
+			 KC_NO,               KC_NO,
+		   
+			 KC_NO,               LCA(KC_DEL),
+
+			 KC_NO,               KC_NO,
+
+			 KC_NO,               KC_NO,
+
+		         KC_NO
+			 ),
+
+*/
+
+
+
 /*
   
    Keymap: Default Layer in DVORAK
@@ -191,89 +277,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 		       KC_NO
 		       ),
-
-/*
-  
-   Keymap: layer 2 - Navigation keys 1
-  
-   ,---------------------------------------------------------------------------------------------------.                      ,--------------------.        
-   |        |      |      |      |      |      |      |      |      |      |      |      |      |      |		      |      |      |      |        
-   |--------+------+------+------+------+------+---------------------------+------+------+------+------+------+--------.      +------+------+------+------. 
-   |  C-F1  | C-F2 | C-F3 | C-F4 | C-F5 | C-F6 |                           | C-F7 | C-F8 | C-F9 | C-F10| C-F11| C-F12  |      |      |      |      |      | 
-   |--------+------+------+------+------+------|                           +------+------+------+------+------+--------|      +------+------+------+------+ 
-   |        |      |      |      | Prev | Vol+ |                           | Find |      |      |      |      | MPause |      |      |      |      |      | 
-   |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|      +------+------+------+------+ 
-   |  Stop  |      | Exec |      |      | Mute |                           |      | Help |      | Next | Selc | Again  |      |      |      |      |      | 
-   |--------+------+------+------+------+------|                           |------+------+------+------+------+--------|      +------+------+------+------+ 
-   |        | Undo | Cut  | Copy |Paste | Vol- |                           |      | Menu |      |      |      |        |      |      |      |      |      | 
-   `--------+------+------+------+------+-------                           `------+------+------+------+------+--------'      +------+------+------+------' 
-            |      |      | CA-L | CA-R |                                         | CA-U | CA-D |      |      |		                    |      |        
-            `---------------------------'                                         `---------------------------'		                    `------'        
-                                          ,-------------.         ,--------------.					                                    
-                                          |      |      |         |       |      |
-                                   ,------|------|------|         |-------+------+------.  ,------. 
-                                   |      | CA-  |      |         |       |      |      |  |      | 
-                                   |      | DEL  |------|         |-------|      |      |  |      | 
-                                   |      |      |      |         |       |      |      |  |      | 
-                                   `--------------------'         `--------------------'   `------' 
- 											            
-
-[_NAVI] = LAYOUT_ka500(
-			 KC_NO,
-			 KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
-			 KC_NO,               KC_NO,              KC_NO,            KC_NO,            KC_NO,           KC_NO,
-			 KC_NO,               KC_NO,              KC_NO,
-
-			 KC_NO,               KC_NO,              KC_NO,
-		   
-			 LCTL(KC_F1),
-			 LCTL(KC_F2),         LCTL(KC_F3),        LCTL(KC_F4),      LCTL(KC_F5),      LCTL(KC_F6),
-			 LCTL(KC_F7),         LCTL(KC_F8),        LCTL(KC_F9),      LCTL(KC_F10),     LCTL(KC_F11),
-			 LCTL(KC_F12),
-		   
-		                              KC_NO,                               KC_NO,            KC_NO,             
-		   
-			 KC_NO,
-			 KC_NO,               KC_NO,              KC_NO,            KC_MPRV,          KC_VOLU,
-			 KC_FIND,             KC_NO,              KC_UP,            KC_NO,            KC_NO,
-			 KC_MPLY,
-		   
-		                              KC_NO,              KC_NO,            KC_NO,            KC_NO,             
-		   
-			 KC_STOP,
-			 KC_NO,               KC_NO,              KC_EXEC,          KC_NO,            KC_MUTE,
-			 KC_NO,               KC_HELP,            KC_NO,            KC_MNXT,          KC_SLCT,
-			 KC_AGIN,
-		   
-		                              KC_NO,              KC_NO,            KC_NO,            KC_NO,             
-
-			 KC_NO,
-			 KC_UNDO,             KC_CUT,             KC_COPY,          KC_PSTE,          KC_VOLD,
-			 KC_NO,               KC_MENU,            KC_NO,            KC_NO,            KC_NO,
-			 KC_NO,
-		   
-		                              KC_NO,              KC_NO,            KC_NO,            KC_NO,             
-
-			 KC_NO,               KC_NO,              LCA(KC_LEFT),     LCA(KC_RIGHT),
-			 LCA(KC_UP),          LCA(KC_DOWN),       KC_NO,            KC_NO,
-
-                                                                  KC_NO,
-		   
-			 KC_NO,               KC_NO,
-			 KC_NO,               KC_NO,
-		   
-			 KC_NO,               KC_NO,
-		   
-			 KC_NO,               LCA(KC_DEL),
-
-			 KC_NO,               KC_NO,
-
-			 KC_NO,               KC_NO,
-
-		         KC_NO
-			 ),
-
-*/
 
 /* 
  
